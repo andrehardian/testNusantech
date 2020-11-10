@@ -1,5 +1,6 @@
 package com.logan.testnusantech;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,23 +37,10 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
         return result;
     }
 
-    @Click
-    protected void plus() {
-        impl.plus();
+    @Click({R.id.plus, R.id.divide, R.id.min, R.id.multiply})
+    protected void calculate(View clickView) {
+        impl.calculate(clickView.getId());
     }
 
-    @Click
-    protected void min() {
-        impl.minus();
-    }
 
-    @Click
-    protected void divide() {
-        impl.divide();
-    }
-
-    @Click
-    protected void multiply() {
-        impl.multiply();
-    }
 }

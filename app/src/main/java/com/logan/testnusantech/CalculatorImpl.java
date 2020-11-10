@@ -10,6 +10,10 @@ public class CalculatorImpl implements CalculatorPresenter {
     private AdapterRecycler adapterRecycler = new AdapterRecycler();
     private ArrayList<Float> listCalculate = new ArrayList<>();
     private float result;
+    private int typePlus = 0;
+    private int typeMinus;
+    private int typeDivide;
+    private int typeMultiply;
 
     @Override
     public void init(CalculatorView view) {
@@ -18,48 +22,33 @@ public class CalculatorImpl implements CalculatorPresenter {
     }
 
     @Override
-    public void plus() {
+    public void calculate(int id) {
         if (checkDataLength()) {
             for (int pos = 1; pos < listCalculate.size(); pos++) {
-                result += listCalculate.get(pos);
+                switch (id) {
+                    case R.id.plus:
+                        result += listCalculate.get(pos);
+                        break;
+                    case R.id.min:
+                        result -= listCalculate.get(pos);
+                        break;
+                    case R.id.divide:
+                        result /= listCalculate.get(pos);
+                        break;
+                    case R.id.multiply:
+                        result *= listCalculate.get(pos);
+                        break;
+                }
             }
-        setResult();
+            setResult();
         }
     }
+
 
     private void setResult() {
         calculatorView.result().setText(String.valueOf(result));
     }
 
-    @Override
-    public void minus() {
-        if (checkDataLength()) {
-            for (int pos = 1; pos < listCalculate.size(); pos++) {
-                result -= listCalculate.get(pos);
-            }
-        setResult();
-        }
-    }
-
-    @Override
-    public void multiply() {
-        if (checkDataLength()) {
-            for (int pos = 1; pos < listCalculate.size(); pos++) {
-                result *= listCalculate.get(pos);
-            }
-        setResult();
-        }
-    }
-
-    @Override
-    public void divide() {
-        if (checkDataLength()) {
-            for (int pos = 1; pos < listCalculate.size(); pos++) {
-                result /= listCalculate.get(pos);
-            }
-        setResult();
-        }
-    }
 
     private boolean checkDataLength() {
         calculatorView.result().setText("");
